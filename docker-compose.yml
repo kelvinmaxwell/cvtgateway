@@ -18,7 +18,7 @@ services:
     networks:
       - my_network
   cvtmain:
-    image: kelvinmaxwell/cvtserver-springboot-images
+    image: kelvinmaxwell/cvtmain-springboot-images:latest
     ports:
       - "8081:8081"
     environment:
