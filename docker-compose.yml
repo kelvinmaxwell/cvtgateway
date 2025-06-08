@@ -4,36 +4,28 @@ services:
     image: kelvinmaxwell/cvtserver-springboot-images:latest
     ports:
       - "9099:9099"
-    depends_on:
-      - mysql
-    environment:
-      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/ujuziocorewater
-      SPRING_DATASOURCE_USERNAME: root
-      SPRING_DATASOURCE_PASSWORD: Karimax@2023
     networks:
       - my_network
   cvtgateway:
     image: kelvinmaxwell/gateway-springboot-images:latest
     ports:
       - "8080:8080"
-    depends_on:
-      - mysql
     environment:
-      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/storyhippo
+      SPRING_DATASOURCE_URL: jdbc:mysql://localhost:3306/cvt
       SPRING_DATASOURCE_USERNAME: root
       SPRING_DATASOURCE_PASSWORD: Karimax@2023
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://cvtserver:9099/eureka
     networks:
       - my_network
   cvtmain:
-    image: kelvinmaxwell/cvt-main:latest
+    image: kelvinmaxwell/cvtserver-springboot-images
     ports:
       - "8081:8081"
-    depends_on:
-      - mysql
     environment:
-      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/storyhippo
+      SPRING_DATASOURCE_URL: jdbc:mysql://localhost:3306/cvt
       SPRING_DATASOURCE_USERNAME: root
       SPRING_DATASOURCE_PASSWORD: Karimax@2023
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://cvtserver:9099/eureka
     networks:
       - my_network
 
@@ -41,12 +33,11 @@ services:
     image: kelvinmaxwell/towingambulance-springboot-images:latest
     ports:
       - "8082:8082"
-    depends_on:
-      - mysql
     environment:
-      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/ujuziocorewater
+      SPRING_DATASOURCE_URL: jdbc:mysql://localhost:3306/cvt
       SPRING_DATASOURCE_USERNAME: root
-      SPRING_DATASOURCE_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      SPRING_DATASOURCE_PASSWORD: Karimax@2023
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://cvtserver:9099/eureka
     networks:
       - my_network
 
