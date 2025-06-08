@@ -1,0 +1,66 @@
+logging:
+  level:
+    cvt:
+      karimax:
+        cvtgateway: ERROR
+    org:
+      hibernate: ERROR
+    root: ERROR
+
+server:
+  port: 8080
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://eurekaservice:9099/eureka
+  instance:
+    prefer-ip-address: true
+
+spring:
+  application:
+    name: api-gateway
+
+  cloud:
+    loadbalancer:
+      retry:
+        enabled: true
+      cache:
+        ttl: 2s
+    gateway:
+      httpclient:
+        pool:
+          max-connections: 8000
+          max-idle-time: 60s  # Helps keep unused connections active
+          max-life-time: 160s  # Prevents too many stale connections
+          acquire-timeout: 10000  # Ensures connections are available quickly
+        connect-timeout: 5000     # 5 seconds for new connections
+        response-timeout: 60000   # 30 seconds for full response
+      routes:
+        - id: cvt-main-api
+          uri: lb://cvt-main-api
+          predicates:
+            - Path=/api/v1/auth/**,/api/v1/employees/**,/api/v1/garages/**,/api/v1/jobcards/**,/api/v1/mechtypes/**,/api/v1/mpesa/**,/api/v1/inspection/**,/api/v1/products/**,/api/v1/quotations/**,/api/v1/services/**,/api/v1/users/**,/api/v1/vehicles/**
+        - id: towing-ambulance
+          uri: lb://towing-ambulance
+          predicates:
+            - Path=/api/v1/bookings_at/**,/api/v1/services_at/**
+
+
+
+
+    discovery:
+      locator:
+        enabled: true
+        lower-case-service-id: true
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    health:
+      show-details: always
+    gateway:
+      enabled: true
