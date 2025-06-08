@@ -1,7 +1,7 @@
 # Build stage
 FROM maven:3.8.3-openjdk-17 AS build
 LABEL COMPANY="cvt"
-LABEL MAINTAINER="kelvinmaxwell@storymojaafrica.co.ke"
+LABEL MAINTAINER="kelvinmaxwell@gmail.com"
 LABEL APPLICATION="cvt"
 
 WORKDIR /usr/src/app
