@@ -31,14 +31,24 @@ spring:
         connect-timeout: 5000     # 5 seconds for new connections
         response-timeout: 60000   # 30 seconds for full response
       routes:
-        - id: cvtmain
-          uri: lb://cvtmain
+        - id: cvt-main
+          uri: lb://cvt-main
           predicates:
             - Path=/api/v1/auth/**,/api/v1/employees/**,/api/v1/garages/**,/api/v1/jobcards/**,/api/v1/mechtypes/**,/api/v1/mpesa/**,/api/v1/inspection/**,/api/v1/products/**,/api/v1/quotations/**,/api/v1/services/**,/api/v1/users/**,/api/v1/vehicles/**
-        - id: towingambulanceservice
-          uri: lb://towingambulanceservice
+        - id: towing-ambulance-service
+          uri: lb://towing-ambulance-service
           predicates:
             - Path=/api/v1/bookings_at/**,/api/v1/services_at/**
+          filters:
+            - name: Retry
+              args:
+                retries: 3
+                statuses: BAD_GATEWAY,SERVICE_UNAVAILABLE,GATEWAY_TIMEOUT
+                methods: GET
+                backoff:
+                  firstBackoff: 2000
+                  maxBackoff: 15000
+                  factor: 2
 
 
 
