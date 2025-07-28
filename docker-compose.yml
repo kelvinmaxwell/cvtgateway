@@ -11,7 +11,7 @@ services:
     ports:
       - "8080:8080"
     environment:
-      SPRING_DATASOURCE_URL: jdbc:mysql://localhost:3306/cvt
+      SPRING_DATASOURCE_URL: jdbc:mysql://172.17.0.1:3306/forge
       SPRING_DATASOURCE_USERNAME: root
       SPRING_DATASOURCE_PASSWORD: Karimax@2023
       EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://cvtserver:9099/eureka
@@ -22,7 +22,7 @@ services:
     ports:
       - "8081:8081"
     environment:
-      SPRING_DATASOURCE_URL: jdbc:mysql://localhost:3306/cvt
+      SPRING_DATASOURCE_URL: jdbc:mysql://172.17.0.1:3306/forge
       SPRING_DATASOURCE_USERNAME: root
       SPRING_DATASOURCE_PASSWORD: Karimax@2023
       EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://cvtserver:9099/eureka
@@ -34,7 +34,7 @@ services:
     ports:
       - "8082:8082"
     environment:
-      SPRING_DATASOURCE_URL: jdbc:mysql://localhost:3306/cvt
+      SPRING_DATASOURCE_URL: jdbc:mysql://172.17.0.1:3306/forge
       SPRING_DATASOURCE_USERNAME: root
       SPRING_DATASOURCE_PASSWORD: Karimax@2023
       EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://cvtserver:9099/eureka

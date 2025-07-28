@@ -38,7 +38,7 @@ spring:
         - id: towing-ambulance-service
           uri: lb://towing-ambulance-service
           predicates:
-            - Path=/api/v1/bookings_at/**,/api/v1/services_at/**
+            - Path=/api/v1/towingambulance/**,/api/v1/services_at/**
           filters:
             - name: Retry
               args:
